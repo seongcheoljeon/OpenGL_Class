@@ -1,4 +1,5 @@
 #include <spdlog/spdlog.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 int main(int argc, const char** argv)
@@ -15,6 +16,11 @@ int main(int argc, const char** argv)
         return -1;
     }
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    // window 생성
     SPDLOG_INFO("Create glfw window");
     auto window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, nullptr, nullptr);
     if (!window)
@@ -23,6 +29,8 @@ int main(int argc, const char** argv)
         glfwTerminate();
         return -1;
     }
+    // 만들어진 OpenGL Context를 앞으로 사용하겠다고 명시
+    glfwMakeContextCurrent(window);
 
     // glfw loop 실행, window가 닫힐 때까지
     SPDLOG_INFO("Start main loop!");

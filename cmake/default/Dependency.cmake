@@ -43,4 +43,3 @@ set(DEP_LIBS ${DEP_LIBS} glfw3)
 
 message(STATUS "DEP_LIST: ${DEP_LIST}")
 message(STATUS "DEP_LIBS: ${DEP_LIBS}")
-

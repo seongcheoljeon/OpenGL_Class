@@ -3,7 +3,7 @@ project(OpenGL_Class)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(WINDOW_NAME "Hello, OpenGL!")
+set(WINDOW_NAME "OpenGL Class")
 set(WINDOW_WIDTH 960)
 set(WINDOW_HEIGHT 540)
 
@@ -20,7 +20,10 @@ include(cmake/default/Dependency.cmake)
 target_compile_options(${PROJECT_NAME} PRIVATE "/utf-8")
 
 # include/lib 관련 옵션 추가
-target_include_directories(${PROJECT_NAME} PRIVATE ${DEP_INCLUDE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE
+        ${DEP_INCLUDE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 target_link_directories(${PROJECT_NAME} PRIVATE ${DEP_LIB_DIR})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${DEP_LIBS})
 
