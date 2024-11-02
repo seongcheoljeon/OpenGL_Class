@@ -17,6 +17,8 @@ add_executable(${PROJECT_NAME}
         src/glad.c
         src/common.cpp
         src/shader.cpp
+        src/Program.cpp
+        src/context.cpp
 )
 
 include(cmake/default/Dependency.cmake)

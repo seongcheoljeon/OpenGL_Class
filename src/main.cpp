@@ -6,8 +6,7 @@
  * description: OpenGL
 */
 
-#include "common.h"
-#include "shader.h"
+#include "context.h"
 
 #include <spdlog/spdlog.h>
 #include <glad/glad.h>
@@ -80,12 +79,13 @@ int main(int argc, const char** argv)
     auto glVersion = glGetString(GL_VERSION);
     SPDLOG_INFO("OpenGL context version: {}", reinterpret_cast<const char*>(glVersion));
 
-    //
-    auto vertexShader = Shader::CreateFromFile("./shader/simple.vert", GL_VERTEX_SHADER);
-    auto fragmentShader = Shader::CreateFromFile("./shader/simple.frag", GL_FRAGMENT_SHADER);
-    SPDLOG_INFO("vertex shader id: {}", vertexShader->Get());
-    SPDLOG_INFO("fragment shader id: {}", fragmentShader->Get());
-    //
+    auto context = Context::Create();
+    if (!context)
+    {
+        SPDLOG_ERROR("failed to create context");
+        glfwTerminate();
+        return -1;
+    }
 
     OnFramebufferSizeChange(window, WINDOW_WIDTH, WINDOW_HEIGHT);
     glfwSetFramebufferSizeCallback(window, OnFramebufferSizeChange);
@@ -98,10 +98,7 @@ int main(int argc, const char** argv)
         // keyboard/mouse 등 여러가지 이벤트들을 수집하는 함수. 1/60초마다 이벤트 수집
         // 해당 함수가 없으면, 너무 빠르게 실행되어 멈춘것처럼 보일 수 있음.
         glfwPollEvents();
-        // 컬러 프레임버퍼 화면을 클리어 (화면을 지울때 무슨색으로 지울까?)
-        glClearColor(0.0f, 0.1f, 0.2f, 0.0f);
-        // 프레임버퍼 클리어 (실제로 화면을 지워주는 함수)
-        glClear(GL_COLOR_BUFFER_BIT);
+        context->Render();
         // 화면에 그림을 그리는 과정
         // - 프레임버퍼 2개를 준비 (front/back)
         // - back buffer에 그림 그리기
@@ -110,6 +107,7 @@ int main(int argc, const char** argv)
         // 그림이 그려지는 과정이 노출되지 않도록 해줌
         glfwSwapBuffers(window);
     }
+    context.reset();
 
     glfwTerminate();
 
