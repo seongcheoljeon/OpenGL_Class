@@ -19,7 +19,7 @@ description   :
 #include <sstream>
 
 
-std::optional<std::string> LoadTextureFile(const std::string& filename)
+std::optional<std::string> LoadTextFile(const std::string& filename)
 {
     const std::ifstream fin(filename);
     if(!fin.is_open())

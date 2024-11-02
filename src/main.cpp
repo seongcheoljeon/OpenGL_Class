@@ -1,3 +1,14 @@
+/*
+ * project: OpenGL_Class
+ * author: Seongcheol Jeon
+ * created date: 2024.11.02
+ * modified date: 2024.11.02
+ * description: OpenGL
+*/
+
+#include "common.h"
+#include "shader.h"
+
 #include <spdlog/spdlog.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -68,6 +79,13 @@ int main(int argc, const char** argv)
     }
     auto glVersion = glGetString(GL_VERSION);
     SPDLOG_INFO("OpenGL context version: {}", reinterpret_cast<const char*>(glVersion));
+
+    //
+    auto vertexShader = Shader::CreateFromFile("./shader/simple.vert", GL_VERTEX_SHADER);
+    auto fragmentShader = Shader::CreateFromFile("./shader/simple.frag", GL_FRAGMENT_SHADER);
+    SPDLOG_INFO("vertex shader id: {}", vertexShader->Get());
+    SPDLOG_INFO("fragment shader id: {}", fragmentShader->Get());
+    //
 
     OnFramebufferSizeChange(window, WINDOW_WIDTH, WINDOW_HEIGHT);
     glfwSetFramebufferSizeCallback(window, OnFramebufferSizeChange);

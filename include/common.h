@@ -24,6 +24,13 @@ description   :
 #include <spdlog/spdlog.h>
 
 
-std::optional<std::string> LoadTextureFile(const std::string& filename);
+#define CLASS_PTR(klassName) \
+    class klassName; \
+    using klassName ## UPtr = std::unique_ptr<klassName>; \
+    using klassName ## SPtr = std::shared_ptr<klassName>; \
+    using klassName ## WPtr = std::weak_ptr<klassName>;
+
+
+std::optional<std::string> LoadTextFile(const std::string& filename);
 
 #endif //COMMON_H
