@@ -17,7 +17,7 @@ add_executable(${PROJECT_NAME}
         src/glad.c
         src/common.cpp
         src/shader.cpp
-        src/Program.cpp
+        src/program.cpp
         src/context.cpp
 )
 
