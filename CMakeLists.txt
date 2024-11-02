@@ -15,6 +15,7 @@ set(DEP_LIB_DIR ${DEP_INSTALL_DIR}/lib)
 add_executable(${PROJECT_NAME}
         src/main.cpp
         src/glad.c
+        src/common.cpp
 )
 
 include(cmake/default/Dependency.cmake)
